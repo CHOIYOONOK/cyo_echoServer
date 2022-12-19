@@ -1,4 +1,4 @@
-package cyo_echoServer;
+package com.danbplus.cyo_echoServer;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -9,17 +9,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import com.danbplus.properties.properties;
+
 public class cyo_Client3 {
 	 	private Socket             soc;    // 서버에 연결할 소켓
 	    private BufferedReader     br;        // 서버가 보낸 메세지를 읽을 리더
 	    private PrintWriter     pw;        // 서버로 메세지를 보낼 라이터
 	    private Scanner            scan;    // 사용자가 입력한 데이터를 읽을 스캐너
 	    
-	    public cyo_Client3(){
+	    public cyo_Client3() throws Exception{
 	        init();
 	    }
 	    
-	    public void init(){
+	    public void init() throws Exception{
 	        
 	        try{
 	            soc = new Socket("localhost", 8888);    // 자신의 아이피로 포트를 통해 서버에 접속시도
@@ -45,7 +47,7 @@ public class cyo_Client3 {
 	                System.out.println(getTime() + "from Server > "+br.readLine());
 	            }
 	            
-	            soc.close();
+	            soc.close(); // 소켓을 닫는다.
 	            
 	        }catch(ConnectException ce){
 	            System.out.println("서버가 동작하고 있지않아 프로그램을 종료");
@@ -53,7 +55,11 @@ public class cyo_Client3 {
 	        
 	        }catch(Exception e){
 	            e.printStackTrace();
-	        }
+	        }finally {
+	        	if(soc != null) soc.close();
+	        	if(br != null) br.close();
+	        	if(pw != null) pw.close();
+			}
 	        
 	    }
 	    
@@ -62,9 +68,13 @@ public class cyo_Client3 {
 	        return f.format(new Date());
 	    }
 	 
-	    public static void main(String[] args) {
+	    public static void main(String[] args) throws Exception {
 	        // TODO Auto-generated method stub
 	        
+	    	properties properties2;
+	    	String port; 
+	    	port = properties.main(args).getProperty("port");
+	    	
 	        new cyo_Client3();
 	    }
 }
