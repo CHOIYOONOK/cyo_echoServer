@@ -24,7 +24,9 @@ public class cyo_Client3 {
 	    public void init() throws Exception{
 	        
 	        try{
-	            soc = new Socket("localhost", 8888);    // 자신의 아이피로 포트를 통해 서버에 접속시도
+	        	 // TODO Auto-generated method stub
+	        	
+	        	soc = new Socket("localhost", 8888);    // 자신의 아이피로 포트를 통해 서버에 접속시도
 	            System.out.println(getTime() + "서버접속");
 	            
 	            // 연결된 서버로부터 데이터를 받아올 준비를 한다
@@ -69,11 +71,7 @@ public class cyo_Client3 {
 	    }
 	 
 	    public static void main(String[] args) throws Exception {
-	        // TODO Auto-generated method stub
-	        
-	    	properties properties2;
-	    	String port; 
-	    	port = properties.main(args).getProperty("port");
+	       
 	    	
 	        new cyo_Client3();
 	    }

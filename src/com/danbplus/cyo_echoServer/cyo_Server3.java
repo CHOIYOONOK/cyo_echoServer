@@ -13,7 +13,6 @@ import java.net.SocketImpl;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
-//import com\danbplus\properties\properties.java;
 
 public class cyo_Server3 {
 	    private ServerSocket      server_Soc;    //서버소켓
@@ -21,8 +20,9 @@ public class cyo_Server3 {
 	    private PrintWriter     pw;            // 클라이언트로 메세지를 보낼 프린트 라이터
 	    private Socket          soc;           // 클라이언트 소켓
 	    
+	    
+	    
 	    public cyo_Server3() throws IOException{
-	    	
 			server_Soc = new ServerSocket(8888); //소켓을 생성하여 지정된 포트 번호에 연결 이미 사용중인 포트번호를 지정하면 오류발생
             System.out.println(getTime()+"서버준비");
             System.out.println(getTime()+"클라이언트 대기");
@@ -30,8 +30,8 @@ public class cyo_Server3 {
 	    }
 	    
 	    public void init() throws IOException{
-	        try{
-	            
+	    	
+	    	try{
 	            soc = server_Soc.accept(); // 연결 요청을 기다리다 요청이 들어오면 수락하고 새 소켓 객체를 반환
 	            System.out.println("Client has accepted");
 	            
@@ -68,9 +68,19 @@ public class cyo_Server3 {
 	    }
 	    
 	    public static void main(String[] args) throws IOException {
-	    	
-	    	
-	    	
+			/*
+			 * File path = new File(
+			 * "C:\\\\WorkSpace__\\\\cyo_echoServer\\\\src\\\\com\\\\danbplus\\\\properties\\\\properties.java"
+			 * ); try(FileReader file = new FileReader(path)) {
+			 * 
+			 * Properties prop = new Properties(); prop.load(file); // 파일 열어줌
+			 * System.out.println(prop.getProperty("ip"));
+			 * System.out.println(prop.getProperty("port"));
+			 * 
+			 * } catch(Exception e) {
+			 * 
+			 * System.out.println("실패"); }
+			 */
 	 		new cyo_Server3();
 	 
 	    }
