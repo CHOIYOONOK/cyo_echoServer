@@ -19,11 +19,13 @@ public class cyo_Server3 {
 	    private BufferedReader  br;            // 클라이언트로부터 전달받은 메세지를 읽어들일 버퍼메모리를 가진 리더
 	    private PrintWriter     pw;            // 클라이언트로 메세지를 보낼 프린트 라이터
 	    private Socket          soc;           // 클라이언트 소켓
-	    
+	    static String ip;
+	    static String strPort;
+	    int port = Integer.parseInt(strPort);
 	    
 	    
 	    public cyo_Server3() throws IOException{
-			server_Soc = new ServerSocket(8888); //소켓을 생성하여 지정된 포트 번호에 연결 이미 사용중인 포트번호를 지정하면 오류발생
+			server_Soc = new ServerSocket(port); //소켓을 생성하여 지정된 포트 번호에 연결 이미 사용중인 포트번호를 지정하면 오류발생
             System.out.println(getTime()+"서버준비");
             System.out.println(getTime()+"클라이언트 대기");
 	        init();
@@ -68,19 +70,23 @@ public class cyo_Server3 {
 	    }
 	    
 	    public static void main(String[] args) throws IOException {
-			/*
-			 * File path = new File(
-			 * "C:\\\\WorkSpace__\\\\cyo_echoServer\\\\src\\\\com\\\\danbplus\\\\properties\\\\properties.java"
-			 * ); try(FileReader file = new FileReader(path)) {
-			 * 
-			 * Properties prop = new Properties(); prop.load(file); // 파일 열어줌
-			 * System.out.println(prop.getProperty("ip"));
-			 * System.out.println(prop.getProperty("port"));
-			 * 
-			 * } catch(Exception e) {
-			 * 
-			 * System.out.println("실패"); }
-			 */
+	    	FileReader resources= new FileReader("config/test.properties");
+			Properties properties = new Properties();
+	        
+	        try {
+	            properties.load(resources);
+	            System.out.println("서버 ip == "+properties.getProperty("ip"));
+	            System.out.println("서버 port == "+properties.getProperty("port"));
+	            try {
+					ip = properties.getProperty("ip");
+					strPort = properties.getProperty("port");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
 	 		new cyo_Server3();
 	 
 	    }

@@ -1,21 +1,25 @@
 package com.danbplus.cyo_echoServer;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 import java.util.Scanner;
-
-import com.danbplus.properties.properties;
 
 public class cyo_Client3 {
 	 	private Socket             soc;    // 서버에 연결할 소켓
 	    private BufferedReader     br;        // 서버가 보낸 메세지를 읽을 리더
 	    private PrintWriter     pw;        // 서버로 메세지를 보낼 라이터
 	    private Scanner            scan;    // 사용자가 입력한 데이터를 읽을 스캐너
+	    static String ip;
+	    static String strPort;
+	    int port = Integer.parseInt(strPort);
 	    
 	    public cyo_Client3() throws Exception{
 	        init();
@@ -26,7 +30,7 @@ public class cyo_Client3 {
 	        try{
 	        	 // TODO Auto-generated method stub
 	        	
-	        	soc = new Socket("localhost", 8888);    // 자신의 아이피로 포트를 통해 서버에 접속시도
+	        	soc = new Socket(ip, port);    // 자신의 아이피로 포트를 통해 서버에 접속시도
 	            System.out.println(getTime() + "서버접속");
 	            
 	            // 연결된 서버로부터 데이터를 받아올 준비를 한다
@@ -71,7 +75,23 @@ public class cyo_Client3 {
 	    }
 	 
 	    public static void main(String[] args) throws Exception {
-	       
+	    	FileReader resources= new FileReader("config/test.properties");
+			Properties properties = new Properties();
+	        
+	        try {
+	            properties.load(resources);
+	            System.out.println("클라이언트 ip == "+properties.getProperty("ip"));
+	            System.out.println("클라이언트 port == "+properties.getProperty("port"));
+	            try {
+					ip = properties.getProperty("ip");
+					strPort = properties.getProperty("port");
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
 	    	
 	        new cyo_Client3();
 	    }
